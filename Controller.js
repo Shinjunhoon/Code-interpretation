@@ -10,7 +10,7 @@ constructor(){
 
 async start(){
     const carNames = await this.view.getCarNames();
-    const tryCount = await this.view.tryCount();
+    const tryCount = await this.view.getTryCount();
     this.racingData = new RacingData(carNames,tryCount);
 for(let i = 0; i<tryCount; i++){
     this.moveCars();
@@ -37,7 +37,10 @@ racingWinner(){
             winnerMove = car.distance;
         }
     });
-    const winner = this.racingData.getCars().fillier((car)=> car.distance == winnerMove).map((car)=> car.name);
+    const winner = this.racingData
+    .getCars()
+    .filter((car)=> car.distance === winnerMove)
+    .map((car)=> car.name);
     return winner
 }
 }
